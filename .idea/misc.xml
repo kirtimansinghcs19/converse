@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/drawable/messageshape.xml" value="0.290625" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/drawable/receiver.xml" value="0.290625" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/drawable/sender.xml" value="0.290625" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/activity_chatter.xml" value="0.12037037037037036" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/activity_main.xml" value="0.10740740740740741" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/activity_sign_in.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/activity_sign_up.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/fragment_call.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/fragment_chats.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/receiver.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/sample_akyout.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/sample_layout.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/sample_receiver.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/layout/sample_sender.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Kirtiman Singh/AndroidStudioProjects/converse/app/src/main/res/menu/menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
