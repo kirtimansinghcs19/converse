@@ -1,15 +1,14 @@
 package com.example.converse;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.converse.adapters.FragmentAdapter;
 import com.example.converse.databinding.ActivityMainBinding;
@@ -49,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 auth.signOut();
                 Intent intent = new Intent(MainActivity.this,SignInActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.chatRoom:
+                Intent intent1 = new Intent(MainActivity.this,GroupChatActivity.class);
+                startActivity(intent1);
                 break;
         }
         return super.onOptionsItemSelected(item);

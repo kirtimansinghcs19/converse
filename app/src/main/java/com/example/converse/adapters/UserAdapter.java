@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.converse.ChatterActivity;
 import com.example.converse.R;
 import com.example.converse.models.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,6 +44,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         Users users=list.get(position);
         Picasso.get().load(users.getProfilePic()).placeholder(R.drawable.user__1_).into(holder.image);
         holder.contactName.setText(users.getName());
+        FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getUid() + users.getUserId()).
+                orderByChild("timestamp").limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChildren()){
+                    for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                        holder.lastMessage.setText(dataSnapshot.child("message").getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,12 +81,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView image;
-        TextView contactName, lastName;
+        TextView contactName, lastMessage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.profile_image);
             contactName = itemView.findViewById(R.id.contactName);
-            lastName = itemView.findViewById(R.id.lastMessage);
+            lastMessage = itemView.findViewById(R.id.lastMessage);
         }
     }
 }

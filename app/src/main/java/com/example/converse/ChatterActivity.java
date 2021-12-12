@@ -1,15 +1,26 @@
 package com.example.converse;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.converse.adapters.ChatAdapter;
 import com.example.converse.databinding.ActivityChatterBinding;
+import com.example.converse.models.MessageModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ChatterActivity extends AppCompatActivity {
 
@@ -28,7 +39,7 @@ public class ChatterActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
-        String senderId = auth.getUid();
+        final String senderId = auth.getUid();
         String receiveId = getIntent().getStringExtra("userId");
         String userName = getIntent().getStringExtra("userName");
         String userProfilePic = getIntent().getStringExtra("userProfilePic");
@@ -38,9 +49,58 @@ public class ChatterActivity extends AppCompatActivity {
         activityChatterBinding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChatterActivity.this,MainActivity.class);
+                Intent intent = new Intent(ChatterActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+    ArrayList<MessageModel> messageModels = new ArrayList<>();
+    final ChatAdapter chatAdapter = new ChatAdapter(messageModels, this);
+    activityChatterBinding.chatRecycler.setAdapter(chatAdapter);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        activityChatterBinding.chatRecycler.setLayoutManager(layoutManager);
+
+        String senderRoom = senderId + receiveId;
+        String receiverRoom = receiveId + senderId;
+
+        database.getReference().child("child").child(senderRoom).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messageModels.clear();
+                for (DataSnapshot snapshot1:snapshot.getChildren()){
+                    MessageModel model = snapshot.getValue(MessageModel.class);
+                    messageModels.add(model);
+                }
+                chatAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        activityChatterBinding.sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = activityChatterBinding.enterMessage.getText().toString();
+                MessageModel messageModel = new MessageModel(senderId,message);
+                messageModel.setTimesTamp(new Date().getTime());
+                activityChatterBinding.enterMessage.setText("");
+                database.getReference().child("chats").child(senderRoom).push().setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(@NonNull Void unused) {
+                        database.getReference().child(receiverRoom).push().setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(@NonNull Void unused) {
+
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
     }
 }
