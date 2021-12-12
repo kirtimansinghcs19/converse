@@ -56,7 +56,9 @@ public class GroupChatActivity extends AppCompatActivity {
                 messageModels.clear();
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
                     MessageModel model = snapshot1.getValue(MessageModel.class);
+                    messageModels.add(model);
                 }
+                chatAdapter.notifyDataSetChanged();
             }
 
             @Override

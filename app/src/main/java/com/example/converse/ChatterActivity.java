@@ -64,12 +64,12 @@ public class ChatterActivity extends AppCompatActivity {
         String senderRoom = senderId + receiveId;
         String receiverRoom = receiveId + senderId;
 
-        database.getReference().child("child").child(senderRoom).addValueEventListener(new ValueEventListener() {
+        database.getReference().child("chats").child(senderRoom).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageModels.clear();
                 for (DataSnapshot snapshot1:snapshot.getChildren()){
-                    MessageModel model = snapshot.getValue(MessageModel.class);
+                    MessageModel model = snapshot1.getValue(MessageModel.class);
                     messageModels.add(model);
                 }
                 chatAdapter.notifyDataSetChanged();
@@ -91,7 +91,7 @@ public class ChatterActivity extends AppCompatActivity {
                 database.getReference().child("chats").child(senderRoom).push().setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(@NonNull Void unused) {
-                        database.getReference().child(receiverRoom).push().setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        database.getReference().child("chats").child(receiverRoom).push().setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(@NonNull Void unused) {
 
