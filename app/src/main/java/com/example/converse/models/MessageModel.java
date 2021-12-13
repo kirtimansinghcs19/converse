@@ -1,7 +1,7 @@
 package com.example.converse.models;
 
 public class MessageModel {
-    String uid, message;
+    String uid, message, messageId;
     Long timesTamp;
 
     public MessageModel(String uid, String message, Long timesTamp) {
@@ -10,13 +10,23 @@ public class MessageModel {
         this.timesTamp = timesTamp;
     }
 
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
     public MessageModel(String uid, String message) {
         this.uid = uid;
         this.message = message;
     }
-    public MessageModel(){
+
+    public MessageModel() {
 
     }
+
     public String getUid() {
         return uid;
     }

@@ -1,18 +1,18 @@
 package com.example.converse.Fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.converse.adapters.UserAdapter;
 import com.example.converse.databinding.FragmentChatsBinding;
 import com.example.converse.models.Users;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,10 +45,12 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Users user=dataSnapshot.getValue(Users.class);
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    Users user = dataSnapshot.getValue(Users.class);
                     user.setUserId(dataSnapshot.getKey());
-                    list.add(user);
+                    if (!user.getUserId().equals(FirebaseAuth.getInstance().getUid())) {
+                        list.add(user);
+                    }
                 }
                 userAdapter.notifyDataSetChanged();
             }

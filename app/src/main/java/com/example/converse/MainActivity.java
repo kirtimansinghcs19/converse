@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,15 +41,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.setting:
-                Toast.makeText(MainActivity.this,"Setting Changes", Toast.LENGTH_LONG).show();
+                Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.logout:
                 auth.signOut();
-                Intent intent = new Intent(MainActivity.this,SignInActivity.class);
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
                 break;
             case R.id.chatRoom:
-                Intent intent1 = new Intent(MainActivity.this,GroupChatActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, GroupChatActivity.class);
                 startActivity(intent1);
                 break;
         }

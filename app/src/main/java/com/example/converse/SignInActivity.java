@@ -1,14 +1,14 @@
 package com.example.converse;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.converse.databinding.ActivitySignInBinding;
 import com.example.converse.models.Users;
@@ -82,19 +82,31 @@ public class SignInActivity extends AppCompatActivity {
         activitySignInBinding.ClickSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
-
+        activitySignInBinding.signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activitySignInBinding.UserEmailAddress.getText().toString().isEmpty()) {
+                    activitySignInBinding.UserEmailAddress.setError("Enter your Email");
+                    return;
+                }
+                if (activitySignInBinding.Password.getText().toString().isEmpty()) {
+                    activitySignInBinding.Password.setError("Enter your Password");
+                    return;
+                }
+            }
+        });
         activitySignInBinding.Google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
             }
         });
-        if (auth.getCurrentUser()!=null){
-            Intent intent = new Intent(SignInActivity.this,MainActivity.class);
+        if (auth.getCurrentUser() != null) {
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(intent);
         }
     }

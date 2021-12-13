@@ -1,7 +1,7 @@
 package com.example.converse.models;
 
 public class Users {
-    String profilePic, name, mail, password, userId, lastMessage;
+    String profilePic, name, mail, password, userId, lastMessage, aboutUs;
 
     public Users(String profilePic, String name, String mail, String password, String userId, String lastMessage) {
         this.profilePic = profilePic;
@@ -10,6 +10,16 @@ public class Users {
         this.password = password;
         this.userId = userId;
         this.lastMessage = lastMessage;
+    }
+
+    public Users(String profilePic, String name, String mail, String password, String userId, String lastMessage, String aboutUs) {
+        this.profilePic = profilePic;
+        this.name = name;
+        this.mail = mail;
+        this.password = password;
+        this.userId = userId;
+        this.lastMessage = lastMessage;
+        this.aboutUs = aboutUs;
     }
 
     public Users() {
@@ -70,5 +80,13 @@ public class Users {
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public String getAboutUs() {
+        return aboutUs;
+    }
+
+    public void setAboutUs(String aboutUs) {
+        this.aboutUs = aboutUs;
     }
 }
